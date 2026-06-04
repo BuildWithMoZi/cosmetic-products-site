@@ -4,13 +4,15 @@ import Link from "next/link";
 import HomeLink from "@/components/ui/HomeLink";
 import { withBasePath } from "@/lib/basePath";
 
-import {
-  HiHeart,
-  HiChatBubbleOvalLeft,
-  HiPaperAirplane,
-  HiEnvelope,
-} from "react-icons/hi2";
+import { HiChatBubbleOvalLeft, HiEnvelope } from "react-icons/hi2";
 import { categories } from "@/data/products";
+import {
+  buildWhatsAppUrl,
+  DEFAULT_WHATSAPP_GREETING,
+} from "@/lib/whatsapp";
+
+const whatsappHref =
+  buildWhatsAppUrl(DEFAULT_WHATSAPP_GREETING) || "#";
 
 export default function Footer() {
   return (
@@ -24,7 +26,7 @@ export default function Footer() {
                 alt='logo'
                 width={200}
                 height={56}
-                className='h-19 w-auto sm:h-21'
+                className='h-10 w-auto sm:h-12'
               />
             </HomeLink>
             <p className='text-off-white/70 text-sm leading-relaxed'>
@@ -32,16 +34,20 @@ export default function Footer() {
               ingredients — made for Indian skin, delivered across Bharat.
             </p>
             <div className='flex gap-3 mt-5'>
-              {[HiHeart, HiChatBubbleOvalLeft, HiPaperAirplane, HiEnvelope].map(
-                (Icon, i) => (
-                  <a
-                    key={i}
-                    href='#'
-                    className='w-9 h-9 rounded-full bg-off-white/10 flex items-center justify-center hover:bg-lime hover:text-foreground transition-colors'>
-                    <Icon className='w-4 h-4' />
-                  </a>
-                ),
-              )}
+              <a
+                href={whatsappHref}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='w-9 h-9 rounded-full bg-[#25D366] flex items-center justify-center hover:opacity-90 transition-opacity'
+                aria-label='Chat on WhatsApp'>
+                <HiChatBubbleOvalLeft className='w-4 h-4 text-white' />
+              </a>
+              <Link
+                href='/contact'
+                className='w-9 h-9 rounded-full bg-off-white/10 flex items-center justify-center hover:bg-lime hover:text-foreground transition-colors'
+                aria-label='Contact us'>
+                <HiEnvelope className='w-4 h-4' />
+              </Link>
             </div>
           </div>
 
@@ -64,14 +70,28 @@ export default function Footer() {
             <h4 className='font-semibold mb-4 text-lime'>Support</h4>
             <ul className='space-y-2.5 text-sm text-off-white/70'>
               <li>
-                <a href='#' className='hover:text-lime transition-colors'>
+                <Link href='/contact' className='hover:text-lime transition-colors'>
                   Contact Us
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href='/book-appointment'
+                  className='hover:text-lime transition-colors'>
+                  Book Appointment
+                </Link>
+              </li>
+              <li>
+                <a
+                  href={whatsappHref}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='hover:text-lime transition-colors'>
+                  WhatsApp
                 </a>
               </li>
               <li>
-                <a href='#' className='hover:text-lime transition-colors'>
-                  Pan-India Delivery
-                </a>
+                <span className='text-off-white/50'>Pan-India Delivery</span>
               </li>
               <li>
                 <a href='#' className='hover:text-lime transition-colors'>

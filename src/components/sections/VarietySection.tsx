@@ -87,7 +87,7 @@ function VarietyBlock({
   if (displayProducts.length === 0) return null;
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-10 sm:py-16 lg:py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={`grid lg:grid-cols-2 gap-10 lg:gap-16 items-center ${

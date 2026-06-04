@@ -42,7 +42,7 @@ function Stars({
 
 function RatingPanel() {
   return (
-    <aside className="review-block rounded-3xl bg-foreground text-off-white p-6 sm:p-8 flex flex-col justify-between min-h-full border border-pista/20 shadow-xl shadow-pista/10">
+    <aside className="review-block rounded-3xl bg-foreground text-off-white p-6 sm:p-8 flex flex-col justify-between min-h-[280px] lg:min-h-full border border-pista/20 shadow-xl shadow-pista/10">
       <div>
         <p className="text-xs font-semibold uppercase tracking-widest text-lime mb-4">
           Trust Score

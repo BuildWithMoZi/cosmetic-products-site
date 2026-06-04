@@ -89,3 +89,26 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
+
+/* Header logo — simple responsive sizing */
+.header-logo {
+  display: block;
+  height: 48px;
+  width: auto;
+  max-width: min(58vw, 12.5rem);
+  object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .header-logo {
+    height: 52px;
+    max-width: 14rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .header-logo {
+    height: 60px;
+    max-width: none;
+  }
+}

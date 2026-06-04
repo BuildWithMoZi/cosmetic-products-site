@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import AppImage from "@/components/ui/AppImage";
 import { HiXMark, HiPlus, HiMinus, HiTrash, HiShoppingBag } from "react-icons/hi2";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/utils";
+import CheckoutWhatsAppModal from "@/components/ui/CheckoutWhatsAppModal";
 import gsap from "gsap";
 
 export default function CartDrawer() {
@@ -17,6 +18,7 @@ export default function CartDrawer() {
     totalPrice,
     clearCart,
   } = useCart();
+  const [checkoutOpen, setCheckoutOpen] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
@@ -113,12 +115,13 @@ export default function CartDrawer() {
                     <p className="text-pista-dark font-semibold text-sm mt-1">
                       {formatPrice(product.price)}
                     </p>
-                    <div className="flex items-center gap-2 mt-2">
+                    <div className="flex items-center gap-2 mt-2 min-h-[44px]">
                       <button
                         onClick={() =>
                           updateQuantity(product.id, quantity - 1)
                         }
-                        className="w-7 h-7 rounded-full bg-off-white border border-pista/20 flex items-center justify-center hover:bg-pista/10"
+                        className="min-h-[44px] min-w-[44px] rounded-full bg-off-white border border-pista/20 flex items-center justify-center hover:bg-pista/10"
+                        aria-label="Decrease quantity"
                       >
                         <HiMinus className="w-3 h-3" />
                       </button>
@@ -129,13 +132,15 @@ export default function CartDrawer() {
                         onClick={() =>
                           updateQuantity(product.id, quantity + 1)
                         }
-                        className="w-7 h-7 rounded-full bg-off-white border border-pista/20 flex items-center justify-center hover:bg-pista/10"
+                        className="min-h-[44px] min-w-[44px] rounded-full bg-off-white border border-pista/20 flex items-center justify-center hover:bg-pista/10"
+                        aria-label="Increase quantity"
                       >
                         <HiPlus className="w-3 h-3" />
                       </button>
                       <button
                         onClick={() => removeFromCart(product.id)}
-                        className="ml-auto p-1.5 text-muted hover:text-red-500 transition-colors"
+                        className="ml-auto min-h-[44px] min-w-[44px] flex items-center justify-center text-muted hover:text-red-500 transition-colors"
+                        aria-label="Remove item"
                       >
                         <HiTrash className="w-4 h-4" />
                       </button>
@@ -152,8 +157,11 @@ export default function CartDrawer() {
                   {formatPrice(totalPrice)}
                 </span>
               </div>
-              <button className="w-full py-3.5 bg-lime text-foreground rounded-full font-semibold hover:bg-lime-dark transition-colors">
-                Checkout
+              <button
+                type="button"
+                onClick={() => setCheckoutOpen(true)}
+                className="w-full py-3.5 bg-[#25D366] text-white rounded-full font-semibold hover:opacity-90 transition-opacity">
+                Order on WhatsApp
               </button>
               <button
                 onClick={clearCart}
@@ -165,6 +173,17 @@ export default function CartDrawer() {
           </>
         )}
       </aside>
+
+      <CheckoutWhatsAppModal
+        open={checkoutOpen}
+        onClose={() => setCheckoutOpen(false)}
+        items={items}
+        totalPrice={totalPrice}
+        onSuccess={() => {
+          clearCart();
+          handleClose();
+        }}
+      />
     </>
   );
 }

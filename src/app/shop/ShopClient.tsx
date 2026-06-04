@@ -112,7 +112,7 @@ export default function ShopClient({
   );
 
   return (
-    <div className="pt-28 pb-16 min-h-screen">
+    <div className="pt-[5.5rem] sm:pt-28 lg:pt-32 pb-16 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8">
           <h1 className="font-display text-3xl sm:text-4xl font-bold mb-2">
@@ -123,13 +123,13 @@ export default function ShopClient({
           </p>
         </div>
 
-        <div className="flex flex-col sm:flex-row gap-4 mb-8">
-          <SearchBar className="max-w-xl" />
-          <div className="flex items-center gap-3 sm:ml-auto">
+        <div className="flex flex-col gap-4 mb-8">
+          <SearchBar className="w-full sm:max-w-xl" />
+          <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
             <select
               value={filters.sort}
               onChange={(e) => handleSortChange(e.target.value as SortOption)}
-              className="px-4 py-3 rounded-full bg-cream border border-pista/20 text-sm focus:outline-none focus:ring-2 focus:ring-pista/40"
+              className="w-full min-h-[44px] px-4 py-3 rounded-full bg-cream border border-pista/20 text-sm focus:outline-none focus:ring-2 focus:ring-pista/40 sm:w-auto"
             >
               {sortOptions.map((opt) => (
                 <option key={opt.value} value={opt.value}>
@@ -139,7 +139,7 @@ export default function ShopClient({
             </select>
             <button
               onClick={() => setMobileFiltersOpen(true)}
-              className="lg:hidden flex items-center gap-2 px-4 py-3 rounded-full bg-cream border border-pista/20 text-sm font-medium"
+              className="lg:hidden flex w-full min-h-[44px] items-center justify-center gap-2 px-4 py-3 rounded-full bg-cream border border-pista/20 text-sm font-medium sm:w-auto"
             >
               <HiAdjustmentsHorizontal className="w-4 h-4" />
               Filters
