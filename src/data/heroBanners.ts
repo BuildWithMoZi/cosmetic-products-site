@@ -12,7 +12,7 @@ export interface HeroBanner {
 export const heroBanners: HeroBanner[] = [
   {
     id: 1,
-    image: "/hero-banners/1.png",
+    image: "cosmetic-site/hero-banners/1",
     badge: "Made in India",
     title: "Kerala Glow",
     highlight: "Sun-Kissed Complexion",
@@ -23,7 +23,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 2,
-    image: "/hero-banners/2.png",
+    image: "cosmetic-site/hero-banners/2",
     badge: "Ayurvedic Blend",
     title: "Gulab & Chandan",
     highlight: "Radiance Redefined",
@@ -34,7 +34,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 3,
-    image: "/hero-banners/3.png",
+    image: "cosmetic-site/hero-banners/3",
     badge: "Himalayan Botanicals",
     title: "Himalayan Dew",
     highlight: "Peptide Glow Serum",
@@ -45,7 +45,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 4,
-    image: "/hero-banners/4.png",
+    image: "cosmetic-site/hero-banners/4",
     badge: "Vitamin C Infused",
     title: "Nimbu Glow",
     highlight: "Lime Radiance Foundation",
@@ -56,7 +56,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 5,
-    image: "/hero-banners/5.png",
+    image: "cosmetic-site/hero-banners/5",
     badge: "Silky & Pigmented",
     title: "Marigold Matte",
     highlight: "Radiant Lipstick",
@@ -67,7 +67,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 6,
-    image: "/hero-banners/6.png",
+    image: "cosmetic-site/hero-banners/6",
     badge: "Haldi Inspired",
     title: "Golden Glow",
     highlight: "Satin Lip Collection",
@@ -77,7 +77,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 7,
-    image: "/hero-banners/7.png",
+    image: "cosmetic-site/hero-banners/7",
     badge: "Luminous & Precise",
     title: "Royal Silhouette",
     highlight: "Liquid Foundation",
@@ -88,7 +88,7 @@ export const heroBanners: HeroBanner[] = [
   },
   {
     id: 8,
-    image: "/hero-banners/8.png",
+    image: "cosmetic-site/hero-banners/8",
     badge: "Eye Definition",
     title: "Kajal Couture",
     highlight: "Eyes Collection",

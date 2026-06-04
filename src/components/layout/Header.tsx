@@ -8,9 +8,9 @@ import { withBasePath } from "@/lib/basePath";
 import {
   HiMagnifyingGlass,
   HiShoppingBag,
+  HiHeart,
   HiBars3,
   HiXMark,
-  HiHeart,
 } from "react-icons/hi2";
 import { useCart } from "@/context/CartContext";
 import SearchBar from "@/components/ui/SearchBar";
@@ -33,108 +33,112 @@ export default function Header() {
   const { totalItems, setIsOpen } = useCart();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 40);
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const onHero = pathname === "/" && !scrolled;
-
-  const iconBtnClass =
-    onHero ?
-      "p-2 rounded-full text-off-white hover:bg-off-white/15 transition-colors"
-    : "p-2 rounded-full text-foreground hover:bg-pista/10 transition-colors";
-
-  const navLinkClass =
-    onHero ?
-      "text-sm font-medium text-off-white/90 hover:text-lime transition-colors relative group"
-    : "text-sm font-medium text-foreground/80 hover:text-pista-dark transition-colors relative group";
-
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          onHero ?
-            "bg-gradient-to-b from-foreground/70 via-foreground/30 to-transparent py-5"
-          : "glass shadow-sm border-b border-pista/20 py-3"
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+          scrolled ?
+            "bg-gray-400/75 backdrop-blur-2xl border-b border-black/[0.06] shadow-[0_1px_0_rgba(0,0,0,0.04)]"
+          : "bg-white/60 backdrop-blur-xl border-b border-transparent"
         }`}>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='flex items-center justify-between gap-4'>
-            <button
-              onClick={() => setMobileOpen(true)}
-              className={`lg:hidden ${iconBtnClass}`}
-              aria-label='Open menu'>
-              <HiBars3 className='w-5 h-5' />
-            </button>
-
-            <HomeLink className='flex items-center shrink-0'>
+        {/* Top bar */}
+        <div className='mx-auto max-w-7xl px-5 sm:px-8 lg:px-12'>
+          <div className='flex h-[52px] items-center justify-between gap-6'>
+            {/* Left — logo */}
+            <HomeLink className='flex shrink-0 items-center'>
               <img
                 src={withBasePath("/logo.png")}
-                alt='logo'
-                width={200}
-                height={100}
-                className='h-19 w-auto sm:h-21'
+                alt='GlowVerse'
+                width={120}
+                height={44}
+                className='h-25 w-auto object-contain'
               />
             </HomeLink>
 
-            <nav className='hidden lg:flex items-center gap-8'>
+            {/* Center — nav links */}
+            <nav className='hidden lg:flex items-center gap-1'>
               {navLinks.map((link) =>
                 link.href === "/" ?
-                  <HomeLink key={link.href} className={navLinkClass}>
+                  <HomeLink
+                    key={link.href}
+                    className='group relative px-3 py-1 text-[13px] font-medium tracking-wide text-slate-500 transition-colors duration-200 hover:text-slate-900'>
                     {link.label}
-                    <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-lime group-hover:w-full transition-all duration-300' />
+                    <span className='absolute bottom-0 left-3 right-3 h-px scale-x-0 bg-lime-500 transition-transform duration-200 group-hover:scale-x-100 origin-left' />
                   </HomeLink>
                 : <Link
                     key={link.href}
                     href={link.href}
-                    className={navLinkClass}>
+                    className='group relative px-3 py-1 text-[13px] font-medium tracking-wide text-slate-500 transition-colors duration-200 hover:text-slate-900'>
                     {link.label}
-                    <span className='absolute -bottom-1 left-0 w-0 h-0.5 bg-lime group-hover:w-full transition-all duration-300' />
+                    <span className='absolute bottom-0 left-3 right-3 h-px scale-x-0 bg-lime-500 transition-transform duration-200 group-hover:scale-x-100 origin-left' />
                   </Link>,
               )}
             </nav>
 
-            <div className='flex items-center gap-2 sm:gap-3'>
+            {/* Right — actions */}
+            <div className='flex items-center gap-0.5'>
               <button
                 onClick={() => setSearchOpen(!searchOpen)}
-                className={iconBtnClass}
+                className='flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition-all duration-200 hover:bg-black/[0.05] hover:text-slate-900'
                 aria-label='Search'>
-                <HiMagnifyingGlass className='w-5 h-5' />
+                <HiMagnifyingGlass className='h-[18px] w-[18px]' />
               </button>
+
               <button
-                className={`hidden sm:flex ${iconBtnClass}`}
+                className='hidden sm:flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition-all duration-200 hover:bg-black/[0.05] hover:text-slate-900'
                 aria-label='Wishlist'>
-                <HiHeart className='w-5 h-5' />
+                <HiHeart className='h-[18px] w-[18px]' />
               </button>
+
               <button
                 onClick={() => setIsOpen(true)}
-                className={`relative ${iconBtnClass}`}
+                className='relative flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition-all duration-200 hover:bg-black/[0.05] hover:text-slate-900'
                 aria-label='Cart'>
-                <HiShoppingBag className='w-5 h-5' />
+                <HiShoppingBag className='h-[18px] w-[18px]' />
                 {totalItems > 0 && (
-                  <span className='absolute -top-0.5 -right-0.5 w-5 h-5 bg-lime text-foreground text-xs font-bold rounded-full flex items-center justify-center'>
+                  <span className='absolute -right-0.5 -top-0.5 flex h-[18px] w-[18px] items-center justify-center rounded-full bg-lime-500 text-[10px] font-semibold text-white'>
                     {totalItems}
                   </span>
                 )}
+              </button>
+
+              {/* Mobile hamburger */}
+              <button
+                onClick={() => setMobileOpen(true)}
+                className='lg:hidden flex h-9 w-9 items-center justify-center rounded-full text-slate-500 transition-all duration-200 hover:bg-black/[0.05] hover:text-slate-900 ml-1'
+                aria-label='Open menu'>
+                <HiBars3 className='h-5 w-5' />
               </button>
             </div>
           </div>
         </div>
 
-        {searchOpen && (
-          <div className='absolute top-full left-0 right-0 p-4 glass border-b border-pista/20'>
-            <div className='max-w-2xl mx-auto flex items-center gap-3'>
+        {/* Search panel — slides in below the bar */}
+        <div
+          className={`overflow-hidden transition-all duration-300 ease-in-out ${
+            searchOpen ? "max-h-20 opacity-100" : "max-h-0 opacity-0"
+          }`}>
+          <div className='border-t border-black/[0.05] bg-white/80 backdrop-blur-2xl px-5 sm:px-8 lg:px-12 py-3'>
+            <div className='mx-auto flex max-w-2xl items-center gap-3'>
               <SearchBar autoFocus onClose={() => setSearchOpen(false)} />
               <button
                 onClick={() => setSearchOpen(false)}
-                className='p-2 rounded-full hover:bg-pista/10'
+                className='shrink-0 flex h-8 w-8 items-center justify-center rounded-full text-slate-400 transition-all hover:bg-black/[0.05] hover:text-slate-700'
                 aria-label='Close search'>
-                <HiXMark className='w-5 h-5' />
+                <HiXMark className='h-4 w-4' />
               </button>
             </div>
           </div>
-        )}
+        </div>
+
+        {/* Thin lime accent line at very bottom */}
+        <div className='h-px w-full bg-gradient-to-r from-transparent via-lime-400/40 to-transparent' />
       </header>
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />

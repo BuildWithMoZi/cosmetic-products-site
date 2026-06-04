@@ -1,6 +1,6 @@
 import { Category, CategoryInfo, Product } from "@/types/product";
 
-const img = (n: number) => (n === 9 ? "/products/9.jpg" : `/products/${n}.png`);
+const img = (n: number) => `cosmetic-site/products/${n}`;
 
 const categoryMeta: Omit<CategoryInfo, "productCount" | "coverImage">[] = [
   {
