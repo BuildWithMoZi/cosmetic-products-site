@@ -34,6 +34,8 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /cosmetic-products-site
+          # Required for Cloudinary images (same value as .env.local; add as repo secret)
+          NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
