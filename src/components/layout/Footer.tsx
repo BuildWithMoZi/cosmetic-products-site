@@ -16,7 +16,7 @@ const whatsappHref =
 
 export default function Footer() {
   return (
-    <footer className='bg-foreground text-off-white mt-auto'>
+    <footer className='bg-foreground text-off-white mt-auto pb-[calc(5.25rem+env(safe-area-inset-bottom,0px))] lg:pb-0'>
       <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16'>
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10'>
           <div>

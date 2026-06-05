@@ -1,6 +1,8 @@
 export interface HeroBanner {
   id: number;
   image: string;
+  /** Local banner used below the `sm` breakpoint (mobile only). */
+  mobileImage?: string;
   badge: string;
   title: string;
   highlight: string;
@@ -13,6 +15,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 1,
     image: "cosmetic-site/hero-banners/1",
+    mobileImage: "/mobile-view-banners/1.jpeg",
     badge: "Made in India",
     title: "Kerala Glow",
     highlight: "Sun-Kissed Complexion",
@@ -24,6 +27,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 2,
     image: "cosmetic-site/hero-banners/2",
+    mobileImage: "/mobile-view-banners/2.jpeg",
     badge: "Ayurvedic Blend",
     title: "Gulab & Chandan",
     highlight: "Radiance Redefined",
@@ -35,6 +39,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 3,
     image: "cosmetic-site/hero-banners/3",
+    mobileImage: "/mobile-view-banners/3.jpeg",
     badge: "Himalayan Botanicals",
     title: "Himalayan Dew",
     highlight: "Peptide Glow Serum",
@@ -46,6 +51,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 4,
     image: "cosmetic-site/hero-banners/4",
+    mobileImage: "/mobile-view-banners/4jpeg.jpeg",
     badge: "Vitamin C Infused",
     title: "Nimbu Glow",
     highlight: "Lime Radiance Foundation",
@@ -57,6 +63,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 5,
     image: "cosmetic-site/hero-banners/5",
+    mobileImage: "/mobile-view-banners/5.jpeg",
     badge: "Silky & Pigmented",
     title: "Marigold Matte",
     highlight: "Radiant Lipstick",
@@ -68,6 +75,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 6,
     image: "cosmetic-site/hero-banners/6",
+    mobileImage: "/mobile-view-banners/6.jpeg",
     badge: "Haldi Inspired",
     title: "Golden Glow",
     highlight: "Satin Lip Collection",
@@ -78,6 +86,7 @@ export const heroBanners: HeroBanner[] = [
   {
     id: 7,
     image: "cosmetic-site/hero-banners/7",
+    mobileImage: "/mobile-view-banners/7.jpeg",
     badge: "Luminous & Precise",
     title: "Royal Silhouette",
     highlight: "Liquid Foundation",
@@ -98,3 +107,9 @@ export const heroBanners: HeroBanner[] = [
     secondaryCta: { label: "Explore Tools", href: "/shop?category=tools" },
   },
 ];
+
+/** Mobile carousel — only banners with a local `mobile-view-banners` image. */
+export const mobileHeroBanners = heroBanners.filter(
+  (banner): banner is HeroBanner & { mobileImage: string } =>
+    Boolean(banner.mobileImage),
+);

@@ -7,8 +7,6 @@ import HomeLink from "@/components/ui/HomeLink";
 import { withBasePath } from "@/lib/basePath";
 import { getCategories } from "@/data/products";
 import { CategoryIcon } from "@/lib/categoryIcons";
-import { mainNavLinks } from "@/lib/navLinks";
-
 interface MobileMenuProps {
   open: boolean;
   onClose: () => void;
@@ -59,25 +57,7 @@ export default function MobileMenu({ open, onClose }: MobileMenuProps) {
           </button>
         </div>
         <nav className='flex-1 overflow-y-auto p-5 space-y-1 overscroll-contain'>
-          {mainNavLinks.map((link) =>
-            link.isHome ? (
-              <HomeLink
-                key={link.href}
-                onNavigate={onClose}
-                className='block px-4 py-3 rounded-xl hover:bg-pista/10 font-medium transition-colors'>
-                {link.label}
-              </HomeLink>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={onClose}
-                className='block px-4 py-3 rounded-xl hover:bg-pista/10 font-medium transition-colors'>
-                {link.label === "Shop" ? "Shop All" : link.label}
-              </Link>
-            ),
-          )}
-          <p className='px-4 pt-4 pb-2 text-xs font-semibold uppercase tracking-wider text-muted'>
+          <p className='px-4 pb-2 text-xs font-semibold uppercase tracking-wider text-muted'>
             Categories
           </p>
           {categories.map((cat) => (
