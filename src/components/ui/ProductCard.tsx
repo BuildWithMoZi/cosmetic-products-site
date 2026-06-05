@@ -136,19 +136,19 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           </div>
         </Link>
 
-        <div className="mt-auto flex items-center justify-between gap-2">
+        <div className="mt-auto flex items-center justify-between gap-1.5 sm:gap-2">
           <Link
             href={productHref}
-            className="flex min-w-0 items-center gap-2"
+            className="flex min-w-0 flex-col sm:flex-row sm:items-center sm:gap-2"
           >
-            <span className="font-semibold text-pista-dark">
-              {formatPrice(product.price)}
-            </span>
             {product.originalPrice && (
-              <span className="text-sm text-muted line-through">
+              <span className="order-1 text-[10px] leading-tight text-muted line-through sm:order-2 sm:text-sm">
                 {formatPrice(product.originalPrice)}
               </span>
             )}
+            <span className="order-2 font-semibold text-pista-dark sm:order-1">
+              {formatPrice(product.price)}
+            </span>
           </Link>
 
           {product.inStock && (
