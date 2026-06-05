@@ -39,7 +39,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   const discount = product.originalPrice
     ? Math.round(
-        ((product.originalPrice - product.price) / product.originalPrice) * 100
+        ((product.originalPrice - product.price) / product.originalPrice) * 100,
       )
     : null;
 
@@ -48,12 +48,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   return (
     <article
       ref={cardRef}
-      className="group relative bg-off-white rounded-2xl overflow-hidden border border-pista/10 hover:border-pista/30 hover:shadow-lg hover:shadow-pista/10 transition-shadow duration-300"
+      className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-pista/10 bg-off-white transition-shadow duration-300 hover:border-pista/30 hover:shadow-lg hover:shadow-pista/10"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{ animationDelay: `${index * 0.05}s` }}
     >
-      <div className="relative aspect-square overflow-hidden bg-cream">
+      <div className="relative aspect-square shrink-0 overflow-hidden bg-cream">
         <Link
           href={productHref}
           className="absolute inset-0 z-0 block"
@@ -63,49 +63,94 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
             src={product.image}
             alt={product.name}
             fill
-            className="object-cover group-hover:scale-105 transition-transform duration-500"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
           />
         </Link>
 
         {product.tags.length > 0 && (
-          <span className="absolute top-3 left-3 z-[1] px-2.5 py-1 bg-lime text-foreground text-xs font-semibold rounded-full pointer-events-none">
+          <span className="pointer-events-none absolute left-3 top-3 z-[1] rounded-full bg-lime px-2.5 py-1 text-xs font-semibold text-foreground">
             {tagLabels[product.tags[0]]}
           </span>
         )}
 
         {discount && (
-          <span className="absolute top-3 right-3 z-[1] px-2.5 py-1 bg-pista text-off-white text-xs font-semibold rounded-full pointer-events-none">
+          <span
+            className={`pointer-events-none absolute z-[1] rounded-full bg-pista px-2.5 py-1 text-xs font-semibold text-off-white ${
+              product.tags.length > 0 ? "left-3 top-11" : "left-3 top-3"
+            }`}
+          >
             -{discount}%
           </span>
         )}
 
         {!product.inStock && (
-          <div className="absolute inset-0 z-[1] bg-foreground/40 flex items-center justify-center pointer-events-none">
-            <span className="px-4 py-2 bg-off-white rounded-full text-sm font-semibold">
+          <div className="pointer-events-none absolute inset-0 z-[1] flex items-center justify-center bg-foreground/40">
+            <span className="rounded-full bg-off-white px-4 py-2 text-sm font-semibold">
               Out of Stock
             </span>
           </div>
         )}
 
-        <div className="absolute bottom-3 right-3 z-10 flex gap-2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleWishlist(product);
-            }}
-            className={`w-11 h-11 sm:w-9 sm:h-9 rounded-full backdrop-blur flex items-center justify-center transition-colors shadow-sm ${
-              saved
-                ? "bg-lime text-foreground hover:bg-lime-dark"
-                : "bg-off-white/90 hover:bg-lime hover:text-foreground"
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleWishlist(product);
+          }}
+          className="absolute right-3 top-3 z-10 p-1 text-foreground/75 transition-colors hover:text-pista-dark"
+          aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
+          aria-pressed={saved}
+        >
+          <HiHeart
+            className={`h-5 w-5 drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)] ${
+              saved ? "fill-pista-dark text-pista-dark" : ""
             }`}
-            aria-label={saved ? "Remove from wishlist" : "Add to wishlist"}
-            aria-pressed={saved}
+          />
+        </button>
+      </div>
+
+      <div className="flex flex-1 flex-col p-4">
+        <Link href={productHref} className="flex flex-1 flex-col">
+          <p className="mb-1 text-xs uppercase tracking-wider text-muted">
+            {product.category.replace("-", " ")}
+          </p>
+
+          <h3 className="mb-2 min-h-[2.5rem] text-sm font-medium leading-snug text-foreground line-clamp-2 transition-colors group-hover:text-pista-dark">
+            {product.name}
+          </h3>
+
+          <div className="mb-2 flex items-center gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <HiStar
+                key={i}
+                className={`h-3 w-3 ${
+                  i < Math.floor(product.rating)
+                    ? "fill-lime text-lime"
+                    : "text-pista/30"
+                }`}
+              />
+            ))}
+            <span className="ml-1 text-xs text-muted">({product.reviews})</span>
+          </div>
+        </Link>
+
+        <div className="mt-auto flex items-center justify-between gap-2">
+          <Link
+            href={productHref}
+            className="flex min-w-0 items-center gap-2"
           >
-            <HiHeart className={`w-4 h-4 ${saved ? "fill-current" : ""}`} />
-          </button>
+            <span className="font-semibold text-pista-dark">
+              {formatPrice(product.price)}
+            </span>
+            {product.originalPrice && (
+              <span className="text-sm text-muted line-through">
+                {formatPrice(product.originalPrice)}
+              </span>
+            )}
+          </Link>
+
           {product.inStock && (
             <button
               type="button"
@@ -114,60 +159,24 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 addToCart(product);
               }}
-              className="w-11 h-11 sm:w-9 sm:h-9 rounded-full bg-lime flex items-center justify-center hover:bg-lime-dark transition-colors shadow-sm"
+              className="shrink-0 p-1 text-foreground/75 transition-colors hover:text-pista-dark"
               aria-label="Add to cart"
             >
-              <HiShoppingBag className="w-4 h-4" />
+              <HiShoppingBag className="h-5 w-5" />
             </button>
           )}
         </div>
-      </div>
 
-      <Link href={productHref} className="block p-4">
-        <p className="text-xs text-muted uppercase tracking-wider mb-1">
-          {product.category.replace("-", " ")}
-        </p>
-        <h3 className="font-medium text-sm leading-snug line-clamp-2 mb-2 group-hover:text-pista-dark transition-colors">
-          {product.name}
-        </h3>
-
-        <div className="flex items-center gap-1 mb-2">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <HiStar
-              key={i}
-              className={`w-3 h-3 ${
-                i < Math.floor(product.rating)
-                  ? "fill-lime text-lime"
-                  : "text-pista/30"
-              }`}
+        <div className="mt-3 flex min-h-4 gap-1.5">
+          {product.colors?.map((color) => (
+            <span
+              key={color}
+              className="h-4 w-4 rounded-full border border-pista/20"
+              style={{ backgroundColor: color }}
             />
           ))}
-          <span className="text-xs text-muted ml-1">({product.reviews})</span>
         </div>
-
-        <div className="flex items-center gap-2">
-          <span className="font-semibold text-pista-dark">
-            {formatPrice(product.price)}
-          </span>
-          {product.originalPrice && (
-            <span className="text-sm text-muted line-through">
-              {formatPrice(product.originalPrice)}
-            </span>
-          )}
-        </div>
-
-        {product.colors && (
-          <div className="flex gap-1.5 mt-3 pointer-events-none">
-            {product.colors.map((color) => (
-              <span
-                key={color}
-                className="w-4 h-4 rounded-full border border-pista/20"
-                style={{ backgroundColor: color }}
-              />
-            ))}
-          </div>
-        )}
-      </Link>
+      </div>
     </article>
   );
 }

@@ -244,12 +244,12 @@ export default function Hero() {
               </div>
 
               <div className="absolute inset-0 hidden sm:block bg-gradient-to-r from-foreground/75 via-foreground/40 to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/45 to-transparent sm:from-foreground/35 sm:via-transparent sm:to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/50 via-transparent to-transparent sm:from-foreground/35 sm:via-transparent sm:to-transparent" />
 
               <div className="absolute inset-0 flex items-end pb-[5.25rem] sm:items-center sm:pb-0 sm:pt-28 lg:pt-32">
                 <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 lg:px-12">
                   <div className="w-full max-w-xl lg:max-w-2xl">
-                    <div className="mb-3.5 sm:mb-0">
+                    <div className="mb-3.5 hidden sm:mb-0 sm:block">
                       <span className="slide-badge mb-2 inline-block rounded-full bg-lime/90 px-3 py-1 text-[10px] font-semibold text-foreground sm:mb-5 sm:px-4 sm:py-1.5 sm:text-sm">
                         {banner.badge}
                       </span>
@@ -299,10 +299,10 @@ export default function Hero() {
                             openWhatsApp(DEFAULT_WHATSAPP_GREETING)
                           }
                           className="hero-cta__btn hero-cta__btn--whatsapp"
-                          aria-label="Chat on WhatsApp"
+                          aria-label="Contact us on WhatsApp"
                         >
                           <WhatsAppIcon className="hero-cta__wa-icon" />
-                          <span className="hero-cta__label">WhatsApp</span>
+                          <span className="hero-cta__label">Contact Us</span>
                         </button>
                       </div>
                     </div>
@@ -315,7 +315,7 @@ export default function Hero() {
 
         <button
           onClick={handlePrev}
-          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-off-white/15 backdrop-blur-md border border-off-white/25 flex items-center justify-center text-off-white hover:bg-lime hover:text-foreground transition-all duration-300 hover:scale-105"
+          className="absolute left-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-off-white/25 bg-off-white/15 text-off-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-lime hover:text-foreground sm:left-6 sm:flex sm:h-12 sm:w-12"
           aria-label="Previous slide"
         >
           <HiChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -323,7 +323,7 @@ export default function Hero() {
 
         <button
           onClick={handleNext}
-          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-off-white/15 backdrop-blur-md border border-off-white/25 flex items-center justify-center text-off-white hover:bg-lime hover:text-foreground transition-all duration-300 hover:scale-105"
+          className="absolute right-3 top-1/2 z-10 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-off-white/25 bg-off-white/15 text-off-white backdrop-blur-md transition-all duration-300 hover:scale-105 hover:bg-lime hover:text-foreground sm:right-6 sm:flex sm:h-12 sm:w-12"
           aria-label="Next slide"
         >
           <HiChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
